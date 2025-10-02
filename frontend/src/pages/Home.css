@@ -1,0 +1,111 @@
+.home {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+  background: #f8faff;
+}
+.hero h1 {
+  font-size: 48px;
+  color: #0c3d5b;
+}
+.hero h2 {
+  font-size: 28px;
+  color: #444;
+}
+.hero p {
+  margin: 15px 0;
+  font-size: 16px;
+  color: #555;
+}
+.cta-btn {
+  background: #0c3d5b;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.cta-btn:hover {
+  background: #2f77a8;
+}
+
+/* Features */
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 60px 20px;
+  background: #fff;
+}
+.feature-card {
+  text-align: center;
+  width: 200px;
+}
+.feature-card h3 {
+  margin: 10px 0;
+  color: #0c3d5b;
+}
+
+/* Trusted */
+.trusted {
+  text-align: center;
+  padding: 50px 20px;
+  background: linear-gradient(90deg, #0c3d5b, #2f77a8);
+  color: white;
+}
+.trusted h2 {
+  margin-bottom: 20px;
+}
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+.stats div h3 {
+  font-size: 28px;
+}
+
+/* Search */
+.search {
+  text-align: center;
+  padding: 60px 20px;
+}
+.search input {
+  width: 50%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-top: 15px;
+}
+
+/* Laundry List */
+.laundry-list {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 50px 20px;
+}
+.laundry-card {
+  width: 250px;
+  text-align: center;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+}
+.laundry-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+.laundry-card h3 {
+  margin: 10px 0;
+  color: #0c3d5b;
+}
