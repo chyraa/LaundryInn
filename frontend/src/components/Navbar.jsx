@@ -1,7 +1,8 @@
-// ...existing code...
+// Navbar.js
 import React from "react";
+import { NavLink } from "react-router-dom";
 import "./Navbar.css";
-import logo from "../assets/logo.png"; // Import the logo image
+import logo from "../assets/logo.png";
 
 const Navbar = () => {
   return (
@@ -11,13 +12,27 @@ const Navbar = () => {
         LaundryIn
       </div>
       <ul className="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/orders">Orders</a></li>
-        <li><a href="/profile">Profile</a></li>
+        <li>
+          <NavLink to="/" className={({ isActive }) => isActive ? "active" : ""}>
+            <span className="nav-icon" aria-hidden="true"></span>
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/orders" className={({ isActive }) => isActive ? "active" : ""}>
+            <span className="orders-icon" aria-hidden="true"></span>
+            Orders
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/profile" className={({ isActive }) => isActive ? "active" : ""}>
+            <span className="profile-icon" aria-hidden="true"></span>
+            Profile
+          </NavLink>
+        </li>
       </ul>
     </nav>
   );
 };
 
 export default Navbar;
-// ...existing code...

@@ -7,9 +7,17 @@
   align-items: center;
   padding: 15px 50px;
   background: #fff;
-  box-shadow: 0px 2px 4px rgba(0,0,0,0.1);
-  font-family: 'IM Fell Great Primer', serif; /* gunakan font baru */
+  border-bottom: 1px solid #ccc; /* garis lebih tegas */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* shadow lebih kuat */
+  font-family: 'IM Fell Great Primer', serif;
+  position: fixed;   /* selalu nempel di atas */
+  top: 0;            /* posisinya dari atas */
+  left: 0;           /* biar full width */
+  right: 0;
+  z-index: 1000;     /* biar ga ketimpa elemen lain */
 }
+
+
 
 .logo {
   font-size: 22px;
@@ -28,18 +36,69 @@
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: 60px;
   font-family: 'IM Fell Great Primer', serif; /* agar link juga menggunakan font */
 }
 
 .nav-links li a {
   text-decoration: none;
-  font-size: 16px;
+  font-size: 20px;
   color: #0c3d5b;
   transition: 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  padding: 6px 12px;   /* kasih padding biar ada ruang */
+  border-radius: 8px;  /* biar rounded */
 }
 
 .nav-links li a:hover {
   color: #2f77a8;
+}
+
+
+/* Home icon (lsicon:clothes-outline) */
+.nav-icon {
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-size: contain;
+  /* contoh SVG sederhana sebagai background */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M4 7 L6 4 L10 6 L14 4 L18 6 L20 7 V19 H4 Z' stroke='%230c3d5b' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+/* Orders: posisi absolute sesuai persentase yang diberikan */
+.orders-icon {
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='3' y='7' width='18' height='12' rx='2' stroke='%230c3d5b' stroke-width='1.5' fill='none'/><path d='M7 7V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2' stroke='%230c3d5b' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  flex: none;
+}
+
+/* Profile icon (iconamoon:profile-light) */
+.profile-icon {
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><circle cx='12' cy='8' r='3' stroke='%230c3d5b' stroke-width='1.5' fill='none'/><path d='M4 20c1.5-4 7-6 8-6s6.5 2 8 6' stroke='%230c3d5b' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.nav-links li a.active {
+  background-color: #d6e3eb; /* abu2/blue soft */
+  font-weight: bold;
 }
 /* ...existing code... */
