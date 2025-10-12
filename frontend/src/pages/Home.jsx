@@ -1,3 +1,4 @@
+// ...existing code...
 import React from "react"; 
 import "./Home.css";
 import delivery from "../assets/delivery.png";
@@ -7,6 +8,18 @@ import logo from "../assets/logo.png";
 import laundry1 from "../assets/laundry1.png";
 import laundry2 from "../assets/laundry2.png";
 import laundry3 from "../assets/laundry3.png";
+import { Link } from "react-router-dom";
+import { sampleOrders } from "../data/sampleOrders";
+
+const laundries = [
+  { id: 1, img: laundry1, name: "I Clean Laundry", rating: "⭐ 4.8 | 1K+ Orderan", to: "/laundry-express" },
+  { id: 2, img: laundry2, name: "Pak To Laundry", rating: "⭐ 4.9 | 1K+ Orderan", to: "/orders" },
+  { id: 3, img: laundry3, name: "Elsa Laundry", rating: "⭐ 4.8 | 500+ Orderan", to: "/orders" },
+  { id: 4, img: laundry1, name: "I Clean Laundry", rating: "⭐ 4.8 | 1K+ Orderan", to: "/laundry-express" },
+  { id: 5, img: laundry1, name: "I Clean Laundry", rating: "⭐ 4.8 | 1K+ Orderan", to: "/laundry-express" },
+  { id: 6, img: laundry1, name: "I Clean Laundry", rating: "⭐ 4.8 | 1K+ Orderan", to: "/laundry-express" },
+  { id: 7, img: laundry1, name: "I Clean Laundry", rating: "⭐ 4.8 | 1K+ Orderan", to: "/laundry-express" },
+];
 
 const Home = () => {
   return (
@@ -60,23 +73,32 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Latest orders preview */}
+      <section className="home-orders-preview" style={{maxWidth:980, margin:"24px auto"}}>
+        <h3 style={{margin:"0 0 12px", color:"#0c3d5b"}}>Riwayat Terbaru</h3>
+        <div style={{display:"flex", gap:12}}>
+          {sampleOrders.slice(0,3).map(o => (
+            <Link key={o.id} to="/orders" className="laundry-card-link" style={{flex:1}}>
+              <article className="laundry-card" style={{padding:14, minHeight:80}}>
+                <div style={{fontWeight:700,color:"#0c3d5b"}}>Pesanan #{o.id}</div>
+                <div style={{color:"#2f77a8"}}>{o.pickup} • {o.total}</div>
+              </article>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* Laundry List */}
       <section className="laundry-list">
-        <div className="laundry-card">
-          <img src={laundry1} alt="I Clean Laundry"/>
-          <h3>I Clean Laundry</h3>
-          <p>⭐ 4.8 | 1K+ Orderan</p>
-        </div>
-        <div className="laundry-card">
-          <img src={laundry2} alt="Pak To Laundry"/>
-          <h3>Pak To Laundry</h3>
-          <p>⭐ 4.9 | 1K+ Orderan</p>
-        </div>
-        <div className="laundry-card">
-          <img src={laundry3} alt="Elsa Laundry"/>
-          <h3>Elsa Laundry</h3>
-          <p>⭐ 4.8 | 500+ Orderan</p>
-        </div>
+        {laundries.map(l => (
+          <Link key={l.id} to={l.to} className="laundry-card-link">
+            <article className="laundry-card">
+              <img src={l.img} alt={l.name}/>
+              <h3>{l.name}</h3>
+              <p>{l.rating}</p>
+            </article>
+          </Link>
+        ))}
       </section>
 
       {/* Footer */}
@@ -110,3 +132,4 @@ const Home = () => {
 };
 
 export default Home;
+// ...existing code...

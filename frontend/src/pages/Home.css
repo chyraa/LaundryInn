@@ -194,6 +194,14 @@
   align-items: center;
   gap: 6px;
 }
+.laundry-card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+.laundry-card, .laundry-card h3, .laundry-card p {
+  text-align: left; /* pastikan teks rata kiri di card */
+}
 
 
 /* === FOOTER === */

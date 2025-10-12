@@ -1,0 +1,165 @@
+/* layout */
+.lx-page {
+  font-family: 'IM Fell Great Primer', serif;
+  padding: 110px 24px 60px;
+  background: #f3f7f9;
+  color: #113241;
+}
+
+/* hero / banner */
+.lx-hero {
+  max-width: 1100px;
+  margin: 0 auto 20px;
+  position: relative;
+}
+.lx-banner {
+  height: 220px;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+  filter: saturate(.9) contrast(.98);
+  box-shadow: inset 0 -20px 80px rgba(0,0,0,0.04);
+}
+
+
+/* overlay card on banner */
+.lx-hero-card {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: -32px;
+  background: #fff;
+  border: 1px solid #e7edf2;
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 12px 30px rgba(17,50,65,0.06);
+}
+.lx-hero-left h2 {
+  margin: 0 0 6px;
+  color: #0c3d5b;
+  font-size: 20px;
+  font-weight: 800;
+}
+.lx-sub {
+  font-size: 13px;
+  color: #4b6570;
+}
+.lx-meta { margin-top: 8px; display:flex; gap:12px; align-items:center; color:#2f77a8; font-size:13px; }
+.lx-meta-item { display:flex; gap:8px; align-items:center; }
+
+/* rating badge */
+.rating {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background: linear-gradient(180deg,#39b54a,#2fa94b);
+  color:#fff;
+  padding:8px 12px;
+  border-radius:20px;
+  font-weight:800;
+  box-shadow: 0 6px 14px rgba(39,148,77,0.18);
+}
+.rating-value { font-size:16px; }
+.rating-star { font-size:14px; opacity:0.95; }
+
+/* promos row */
+.lx-promos {
+  max-width: 1100px;
+  margin: 48px auto 18px;
+  display:flex;
+  gap:18px;
+  justify-content:center;
+  padding: 0 12px;
+}
+.promo-card {
+  flex:1;
+  min-width:220px;
+  background:#fff;
+  border-radius:12px;
+  padding:18px;
+  border:1px solid #e7edf2;
+  box-shadow: 0 8px 22px rgba(17,50,65,0.04);
+  color:#0c3d5b;
+  font-weight:700;
+  font-size:14px;
+}
+.promo-min { display:block; margin-top:8px; font-size:12px; font-weight:500; color:#7b8b93; }
+
+/* section title */
+.lx-section { max-width:1100px; margin: 20px auto 80px; padding: 0 12px; }
+.lx-section-title { margin: 8px 0 18px; font-size:18px; color:#0c3d5b; }
+
+/* grid of service cards */
+.lx-grid {
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.lx-card {
+  background:#fff;
+  border-radius:12px;
+  padding:18px;
+  border:1px solid #e9eef0;
+  box-shadow: 0 8px 18px rgba(17,50,65,0.04);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.lx-card-head {
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+.lx-icon {
+  width:56px;
+  height:56px;
+  border-radius:10px;
+  flex:none;
+  background-size:58%;
+  background-position:center;
+  background-repeat:no-repeat;
+}
+.lx-icon.reguler { background-color:#eaf6fb; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M4 7l3-2 2 1 2-1 2 1 3 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z' stroke='%232f77a8' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>"); }
+.lx-icon.express12 { background-color:#eef6ff; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect x='3' y='7' width='18' height='12' rx='2' stroke='%232f77a8' stroke-width='1.5' fill='none'/></svg>"); }
+.lx-icon.express24 { background-color:#eef6ff; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2v6'/><path d='M5 12a7 7 0 1 0 14 0'/></svg>"); }
+.lx-card-title { font-weight:800; color:#0c3d5b; font-size:16px; }
+
+/* description */
+.lx-card-desc { margin-top:8px; color:#4b6570; font-size:13px; line-height:1.3; }
+
+/* footer: tambah button + price */
+.lx-card-footer {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:14px;
+}
+.btn-add {
+  background: #fff;
+  border: 1px solid #d6e6ef;
+  padding:8px 12px;
+  border-radius:8px;
+  color:#0c3d5b;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow: 0 6px 14px rgba(17,50,65,0.04);
+}
+.btn-add:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(17,50,65,0.06); }
+.lx-price { font-weight:800; color:#0c3d5b; }
+
+/* responsive */
+@media (max-width: 900px) {
+  .lx-grid { grid-template-columns: repeat(2, 1fr); }
+  .lx-banner { height:180px; }
+  .lx-hero-card { left:12px; right:12px; bottom:-28px; }
+}
+@media (max-width: 640px) {
+  .lx-hero { margin-bottom: 36px; }
+  .lx-grid { grid-template-columns: 1fr; gap:16px; }
+  .lx-promos { flex-direction:column; }
+  .lx-hero-card { position: static; margin-top:-70px; transform: translateY(0); }
+  .lx-banner { border-radius:8px; }
+}

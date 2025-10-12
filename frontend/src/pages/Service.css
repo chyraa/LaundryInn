@@ -1,0 +1,19 @@
+.service-page {
+  font-family: 'IM Fell Great Primer', serif;
+  padding: 120px 24px 60px;
+  min-height: 80vh;
+  background: #fff;
+  color: #113241;
+}
+.service-hero { text-align: center; margin-bottom: 22px; }
+.service-hero h1 { font-size: 40px; color: #0c3d5b; margin: 0 0 6px; }
+.service-hero p { color: #4b6570; margin: 0; }
+
+.service-content { max-width: 980px; margin: 20px auto; padding: 0 12px; }
+.service-card {
+  border: 1px solid #eceff0;
+  padding: 18px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(17,50,65,0.04);
+}
