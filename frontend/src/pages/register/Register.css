@@ -1,0 +1,73 @@
+.register-page {
+  min-height: 100vh;
+  background: #f7f9fb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px; /* Tambahkan ini agar tidak tertutup navbar */
+}
+
+.register-card {
+  background: #fff;
+  padding: 32px 28px;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(44, 77, 128, 0.10);
+  width: 100%;
+  max-width: 350px;
+  text-align: center;
+}
+
+.register-card h2 {
+  color: #2f77a8;
+  margin-bottom: 24px;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.register-card label {
+  display: block;
+  text-align: left;
+  margin-bottom: 6px;
+  color: #0c3d5b;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.register-card input {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 18px;
+  border: 1px solid #e3eaf2;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #f6fbff;
+}
+
+.register-card button {
+  width: 100%;
+  background: #2f77a8;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s;
+}
+
+.register-card button:hover {
+  background: #0c3d5b;
+}
+
+.register-footer {
+  margin-top: 18px;
+  font-size: 0.95rem;
+}
+
+.register-footer a {
+  color: #2f77a8;
+  text-decoration: none;
+  font-weight: 600;
+}

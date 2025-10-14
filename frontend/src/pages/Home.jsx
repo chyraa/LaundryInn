@@ -23,7 +23,7 @@ const laundries = [
 
 const Home = () => {
   return (
-    <div className="home">
+    <div className="home-page">
       {/* Hero Section */}
       <section className="hero">
         <h2>Mager Nganter Laundry?</h2>
@@ -32,7 +32,9 @@ const Home = () => {
           Solusi praktis untuk kamu yang males anter jemput laundry. 
           Tinggal klik, baju kotor langsung dijemput!
         </p>
-        <button className="cta-btn">Masuk/Daftar</button>
+        <Link to="/login">
+          <button className="cta-btn">Masuk/Daftar</button>
+        </Link>
       </section>
 
       {/* Fitur Section */}
