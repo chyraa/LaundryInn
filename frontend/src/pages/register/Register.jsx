@@ -5,7 +5,7 @@ const Register = () => {
   return (
     <div className="register-page">
       <div className="register-card">
-        <h2>Daftar LaundryInn</h2>
+        <h2>Daftar LaundryIn</h2>
         <form>
           <label htmlFor="name">Nama Lengkap</label>
           <input type="text" id="name" placeholder="Nama Lengkap" required />
@@ -24,6 +24,9 @@ const Register = () => {
 
           <button type="submit">Daftar</button>
         </form>
+        <p className="ket">
+          Dengan membuat akun Anda atau masuk, Anda setuju dengan Syarat dan Ketentuan & Kebijakan Privasi kami
+        </p>
         <p className="register-footer">
           Sudah punya akun? <a href="/login">Masuk</a>
         </p>

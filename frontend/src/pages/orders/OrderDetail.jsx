@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { sampleOrders } from "../data/sampleOrders";
+import { sampleOrders } from "../../data/sampleOrders";
 import "./Orders.css";
 
 export default function OrderDetail() {

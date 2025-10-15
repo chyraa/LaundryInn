@@ -9,7 +9,7 @@
 
 .register-card {
   background: #fff;
-  padding: 32px 28px;
+  padding: 32px 55px;
   border-radius: 16px;
   box-shadow: 0 4px 16px rgba(44, 77, 128, 0.10);
   width: 100%;
@@ -20,7 +20,7 @@
 .register-card h2 {
   color: #2f77a8;
   margin-bottom: 24px;
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   font-weight: 700;
 }
 
@@ -59,6 +59,11 @@
 
 .register-card button:hover {
   background: #0c3d5b;
+}
+
+.ket { 
+  font-size: 0.80rem;
+  color: #9da5aa
 }
 
 .register-footer {

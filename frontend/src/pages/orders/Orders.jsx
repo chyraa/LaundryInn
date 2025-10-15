@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { sampleOrders } from "../data/sampleOrders";
+import { sampleOrders } from "../../data/sampleOrders";
 import "./Orders.css";
 
 export default function Orders() {
@@ -10,32 +10,6 @@ export default function Orders() {
         <h1>Riwayat Pemesanan</h1>
         <p>Lacak Pesanan Anda dan Pengiriman Anda</p>
       </header>
-
-      <div className="services-grid">
-        <Link to="/laundry-express" className="service-card" aria-label="Laundry Express">
-          <div className="service-card-head">
-            <div className="service-icon express" />
-            <div className="service-title">Laundry Express</div>
-          </div>
-          <div className="service-desc">Layanan cepat 12 jam — ideal untuk pakaian mendesak.</div>
-          <div className="service-cta">
-            <div className="pill">Express</div>
-            <div className="chev">→</div>
-          </div>
-        </Link>
-
-        <Link to="/clean-laundry" className="service-card" aria-label="Clean Laundry">
-          <div className="service-card-head">
-            <div className="service-icon clean" />
-            <div className="service-title">Clean Laundry</div>
-          </div>
-          <div className="service-desc">Layanan cuci standar dengan kualitas terbaik.</div>
-          <div className="service-cta">
-            <div className="pill">Reguler</div>
-            <div className="chev">→</div>
-          </div>
-        </Link>
-      </div>
 
       <main className="orders-list">
         {sampleOrders.map((o) => (

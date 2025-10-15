@@ -1,10 +1,21 @@
-// Navbar.js
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../assets/logo.png";
+import DropDownMenu from "./DropDownMenu";
 
 const Navbar = () => {
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleProfileClick = (e) => {
+    e.preventDefault(); // prevent navigation
+    setShowPopup(true);
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
+  };
+
   return (
     <nav className="navbar">
       <div className="logo">
@@ -25,12 +36,14 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/profile" className={({ isActive }) => isActive ? "active" : ""}>
+          <a href="/profile" onClick={handleProfileClick} className="profile-link">
             <span className="profile-icon" aria-hidden="true"></span>
             Profile
-          </NavLink>
+          </a>
         </li>
       </ul>
+
+      {showPopup && <DropDownMenu onClose={closePopup} />}
     </nav>
   );
 };

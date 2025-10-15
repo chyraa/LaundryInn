@@ -1,18 +1,18 @@
 // ...existing code...
 import React from "react"; 
 import "./Home.css";
-import delivery from "../assets/delivery.png";
-import fast from "../assets/fast.png";
-import premium from "../assets/premium.png";
-import logo from "../assets/logo.png"; 
-import laundry1 from "../assets/laundry1.png";
-import laundry2 from "../assets/laundry2.png";
-import laundry3 from "../assets/laundry3.png";
+import delivery from "../../assets/delivery.png";
+import fast from "../../assets/fast.png";
+import premium from "../../assets/premium.png";
+import logo from "../../assets/logo.png"; 
+import laundry1 from "../../assets/laundry1.png";
+import laundry2 from "../../assets/laundry2.png";
+import laundry3 from "../../assets/laundry3.png";
 import { Link } from "react-router-dom";
-import { sampleOrders } from "../data/sampleOrders";
+import { sampleOrders } from "../../data/sampleOrders";
 
 const laundries = [
-  { id: 1, img: laundry1, name: "I Clean Laundry", rating: "⭐ 4.8 | 1K+ Orderan", to: "/laundry-express" },
+  { id: 1, img: laundry1, name: "I Clean Laundry", rating: "⭐ 4.8 | 1K+ Orderan", to: "/mitra" },
   { id: 2, img: laundry2, name: "Pak To Laundry", rating: "⭐ 4.9 | 1K+ Orderan", to: "/orders" },
   { id: 3, img: laundry3, name: "Elsa Laundry", rating: "⭐ 4.8 | 500+ Orderan", to: "/orders" },
   { id: 4, img: laundry1, name: "I Clean Laundry", rating: "⭐ 4.8 | 1K+ Orderan", to: "/laundry-express" },

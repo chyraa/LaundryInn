@@ -1,0 +1,53 @@
+/* === FOOTER === */
+.footer {
+  background: #fff;
+  padding: 40px 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-top: 1px solid #ddd;
+}
+
+.footer-left {
+  flex: 1;
+}
+
+.footer-logo {
+  width: 40px;
+  margin-bottom: 10px;
+}
+
+.footer-left p {
+  font-size: 18px;
+  color: #555;
+}
+
+.footer-center, .footer-right {
+  flex: 0.2;
+}
+
+.footer-center h4, .footer-right h4 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.footer-center ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-center li {
+  margin-bottom: 8px;
+  font-size: 18px;
+  color: #555;
+  cursor: pointer;
+}
+
+.footer-right p {
+  margin: 4px 0;
+  font-size: 18px;
+  color: #555;
+}
+

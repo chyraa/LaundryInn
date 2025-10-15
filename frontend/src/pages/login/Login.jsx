@@ -5,7 +5,7 @@ const Login = () => {
   return (
     <div className="login-page">
       <div className="login-card">
-        <h2>Masuk LaundryInn</h2>
+        <h2>Masuk LaundryIn</h2>
         <form>
           <label htmlFor="email">Email</label>
           <input type="email" id="email" placeholder="Email" required />
@@ -15,6 +15,9 @@ const Login = () => {
 
           <button type="submit">Masuk</button>
         </form>
+        <p className="ket">
+          Dengan membuat akun Anda atau masuk, Anda setuju dengan Syarat dan Ketentuan & Kebijakan Privasi kami
+        </p>
         <p className="login-footer">
           Belum punya akun? <a href="/register">Daftar</a>
         </p>
@@ -24,3 +27,4 @@ const Login = () => {
 };
 
 export default Login;
+
