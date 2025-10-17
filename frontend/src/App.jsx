@@ -7,6 +7,7 @@ import Profile from "./pages/profile/Profile";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import IClean from "./mitra/IClean";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 
 function App() {
@@ -17,7 +18,14 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/orders/:id" element={<OrderDetail />} />
-        <Route path="/profile" element={<Profile />} /> {/* Tambahkan ini */}
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/mitra" element={<IClean />} />

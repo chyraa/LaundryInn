@@ -1,10 +1,14 @@
 // DropDownMenu.js
 import React, { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
 import "./DropDownMenu.css";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
 
 export default function DropDownMenu({ onClose }) {
   const menuRef = useRef();
+  const [user] = useAuthState(auth);
+  const navigate = useNavigate();
 
   // Tutup dropdown saat klik di luar
   useEffect(() => {
@@ -17,18 +21,27 @@ export default function DropDownMenu({ onClose }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [onClose]);
 
+  const handleAccountClick = () => {
+    if (user) {
+      navigate("/profile");
+    } else {
+      navigate("/login");
+    }
+    onClose();
+  };
+
   return (
     <div className="dropdown-container" ref={menuRef}>
       <div className="dropdown-menu">
-        <Link to="/login" className="dropdown-item">
-          Masuk / Daftar
-        </Link>
-        <Link to="/orders" className="dropdown-item">
+        <button className="dropdown-item" onClick={handleAccountClick}>
+          {user ? "Kelola Akun" : "Masuk / Daftar"}
+        </button>
+        <button className="dropdown-item" onClick={() => { navigate("/orders"); onClose(); }}>
           Pesanan
-        </Link>
-        <Link to="/faq" className="dropdown-item">
+        </button>
+        <button className="dropdown-item" onClick={() => { navigate("/faq"); onClose(); }}>
           FAQ
-        </Link>
+        </button>
       </div>
     </div>
   );

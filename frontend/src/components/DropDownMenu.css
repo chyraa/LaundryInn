@@ -1,8 +1,8 @@
 /* Container utama dropdown */
 .dropdown-container {
   position: absolute;
-  top: 80px; /* agak ke bawah biar tak terlalu nempel navbar */
-  right: 40px; /* jarak dari sisi kanan */
+  top: 60px; /* agak ke bawah biar tak terlalu nempel navbar */
+  right: 20px; /* jarak dari sisi kanan */
   z-index: 1000;
   animation: fadeIn 0.25s ease-out;
 }
@@ -11,12 +11,15 @@
 .dropdown-menu {
   background: #ffffff;
   border: none;
-  border-radius: 20px;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12), 0 1.5px 4px rgba(0,0,0,0.08);
   padding: 12px 0;
-  min-width: 240px;
+  min-width: 180px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   transition: all 0.3s ease;
+  animation: fadeIn 0.2s;
 }
 
 /* Item menu */
@@ -24,20 +27,25 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 14px 20px;
-  color: #333;
+  padding: 12px 24px;
+  color: #222;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 1rem;
   font-weight: 500;
-  border-radius: 10px;
-  transition: background 0.25s ease, transform 0.15s ease;
+  border-radius: 6px;
+  transition: background 0.15s ease, color 0.15s;
+  width: 100%;
+  text-align: left;
+  outline: none;
+  border: none;
+  cursor: pointer;
 }
 
 /* Hover efek */
-.dropdown-item:hover {
-  background-color: #f2f6ff;
-  transform: translateX(3px);
-  color: #0066ff;
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background: #f0f4fa;
+  color: #0077b6;
 }
 
 /* Garis pemisah (jika mau tambahkan antar item) */
@@ -51,7 +59,7 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-6px);
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;

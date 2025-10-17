@@ -10,6 +10,8 @@ import laundry2 from "../../assets/laundry2.png";
 import laundry3 from "../../assets/laundry3.png";
 import { Link } from "react-router-dom";
 import { sampleOrders } from "../../data/sampleOrders";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase";
 
 const laundries = [
   { id: 1, img: laundry1, name: "I Clean Laundry", rating: "⭐ 4.8 | 1K+ Orderan", to: "/mitra" },
@@ -22,6 +24,8 @@ const laundries = [
 ];
 
 const Home = () => {
+  const [user] = useAuthState(auth);
+
   return (
     <div className="home-page">
       {/* Hero Section */}
@@ -32,9 +36,11 @@ const Home = () => {
           Solusi praktis untuk kamu yang males anter jemput laundry. 
           Tinggal klik, baju kotor langsung dijemput!
         </p>
-        <Link to="/login">
-          <button className="cta-btn">Masuk/Daftar</button>
-        </Link>
+        {!user && (
+          <Link to="/login">
+            <button className="cta-btn">Masuk/Daftar</button>
+          </Link>
+        )}
       </section>
 
       {/* Fitur Section */}
@@ -134,4 +140,3 @@ const Home = () => {
 };
 
 export default Home;
-// ...existing code...
