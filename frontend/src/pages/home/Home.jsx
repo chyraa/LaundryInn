@@ -38,7 +38,12 @@ const Home = () => {
         </p>
         {!user && (
           <Link to="/login">
-            <button className="cta-btn">Masuk/Daftar</button>
+            <button className="cta-btn">Daftar / Masuk <br></br>Pengguna</button>
+          </Link>
+        )}
+        {!user && (
+          <Link to="/login mitra">
+            <button className="cta-btn">Daftar / Masuk <br></br>Mitra</button>
           </Link>
         )}
       </section>
