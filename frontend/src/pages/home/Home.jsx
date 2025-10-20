@@ -37,15 +37,16 @@ const Home = () => {
           Tinggal klik, baju kotor langsung dijemput!
         </p>
         {!user && (
-          <Link to="/login">
-            <button className="cta-btn">Daftar / Masuk <br></br>Pengguna</button>
-          </Link>
+          <div style={{ display: "flex", gap: "16px", justifyContent: "center" }}>
+            <Link to="/login">
+              <button className="cta-btn">Daftar / Masuk <br />Pengguna</button>
+            </Link>
+            <Link to="/login-mitra">
+              <button className="cta-btn">Daftar / Masuk <br />Mitra</button>
+            </Link>
+          </div>
         )}
-        {!user && (
-          <Link to="/login mitra">
-            <button className="cta-btn">Daftar / Masuk <br></br>Mitra</button>
-          </Link>
-        )}
+        
       </section>
 
       {/* Fitur Section */}

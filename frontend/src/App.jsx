@@ -8,7 +8,9 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import IClean from "./mitra/IClean";
 import ProtectedRoute from "./components/ProtectedRoute";
-
+import LoginMitra from "./pages/Mitra/loginMitra/LoginMitra";
+import RegisterMitra from "./pages/Mitra/registerMitra/RegisterMitra";
+import HomeMitra from "./pages/Mitra/homeMitra/HomeMitra";
 
 function App() {
   return (
@@ -28,7 +30,9 @@ function App() {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/mitra" element={<IClean />} />
+        <Route path="/mitra" element={<HomeMitra />} />
+        <Route path="/login-mitra" element={<LoginMitra />} />
+        <Route path="/register-mitra" element={<RegisterMitra />} />
         {/* other routes */}
       </Routes>
     </BrowserRouter>
