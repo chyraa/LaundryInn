@@ -25,7 +25,7 @@ const RegisterMitra = () => {
   return (
     <div className="register-mitra-page">
       <div className="register-mitra-card">
-        <h2>Daftar Mitra LaundryIn</h2>
+        <h2>Daftar Mitra <br/ >LaundryIn</h2>
         <form onSubmit={handleRegister}>
           <label htmlFor="nama">Nama Mitra</label>
           <input
