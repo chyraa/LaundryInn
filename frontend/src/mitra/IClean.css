@@ -163,3 +163,43 @@
   .lx-hero-card { position: static; margin-top:-70px; transform: translateY(0); }
   .lx-banner { border-radius:8px; }
 }
+
+/* import font Inter dari Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* quantity box (gantikan tombol tambah) */
+.qty-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f3f7f9;
+  border-radius: 10px;
+  padding: 6px 10px;
+  box-shadow: 0 4px 10px rgba(17,50,65,0.05);
+}
+
+.qty-btn {
+  background: #0c3d5b;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+
+.qty-btn:hover {
+  background: #0a3049;
+}
+
+.qty-number {
+  font-family: 'Inter', sans-serif; /* pakai font Inter */
+  font-weight: 700;
+  color: #0c3d5b;
+  min-width: 16px;
+  text-align: center;
+}

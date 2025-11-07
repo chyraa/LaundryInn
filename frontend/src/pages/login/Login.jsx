@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import "./Login.css";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
   const [error, setError] = useState("");
-  const [report, setReport] = useState(""); // State untuk pesan khusus
+  const [report, setReport] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
   const navigate = useNavigate();
 
@@ -16,13 +18,38 @@ const Login = () => {
     e.preventDefault();
     setError("");
     setReport("");
+
+    if (!role) {
+      setReport("Silakan pilih peran terlebih dahulu (Customer atau Mitra).");
+      return;
+    }
+
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
+
       if (!userCredential.user.emailVerified) {
         setReport("Email Anda belum diverifikasi. Silakan cek email Anda untuk verifikasi.");
         return;
       }
-      setShowSuccess(true);
+
+      // 🔍 Ambil data user dari Firestore
+      const userDoc = await getDoc(doc(db, "users", userCredential.user.uid));
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+
+        // Cek apakah role di Firestore sama dengan yang dipilih
+        if (userData.role !== role) {
+          setReport(`Anda terdaftar sebagai ${userData.role}. Silakan pilih peran yang sesuai.`);
+          await auth.signOut();
+          return;
+        }
+
+        // ✅ Login berhasil, tampilkan popup
+        setShowSuccess(true);
+      } else {
+        setReport("Data pengguna tidak ditemukan di database.");
+        await auth.signOut();
+      }
     } catch (error) {
       if (error.code === "auth/wrong-password") {
         setReport("Sandi yang Anda masukkan salah.");
@@ -38,7 +65,15 @@ const Login = () => {
 
   const handleSuccessClose = () => {
     setShowSuccess(false);
-    navigate("/profile");
+
+    // 🚀 Arahkan sesuai role
+    if (role === "customer") {
+      navigate("/user/home");
+    } else if (role === "mitra") {
+      navigate("/mitra/home");
+    } else {
+      navigate("/");
+    }
   };
 
   return (
@@ -66,17 +101,24 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
+          <label htmlFor="role">Masuk sebagai</label>
+          <select
+            id="role"
+            className="role-select"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+          >
+            <option value="">-- Pilih Peran --</option>
+            <option value="customer">Customer</option>
+            <option value="mitra">Mitra</option>
+          </select>
+
           <button type="submit">Masuk</button>
         </form>
-        {/* Pesan khusus report tampil di bawah form */}
-        {report && (
-          <div className="login-report" style={{ color: "#e63946", marginTop: "12px", fontWeight: "500" }}>
-            {report}
-          </div>
-        )}
-        {/* Pesan error lain */}
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        {/* Popup sukses login */}
+
+        {report && <div className="login-report">{report}</div>}
+        {error && <p className="login-error">{error}</p>}
+
         {showSuccess && (
           <div className="popup-overlay">
             <div className="popup-success">
@@ -85,9 +127,12 @@ const Login = () => {
             </div>
           </div>
         )}
+
         <p className="ket">
-          Dengan membuat akun Anda atau masuk, Anda setuju dengan Syarat dan Ketentuan & Kebijakan Privasi kami
+          Dengan membuat akun Anda atau masuk, Anda setuju dengan{" "}
+          <strong>Syarat dan Ketentuan</strong> & <strong>Kebijakan Privasi</strong> kami.
         </p>
+
         <p className="login-footer">
           Belum punya akun? <a href="/register">Daftar</a>
         </p>
@@ -97,4 +142,3 @@ const Login = () => {
 };
 
 export default Login;
-

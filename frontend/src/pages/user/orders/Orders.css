@@ -246,7 +246,6 @@
   .service-title { font-size: 16px; }
 }
 
-/* OrderDetail adjustments */
 @media (min-width: 900px) {
   .orders-list { padding-left: 12px; padding-right:12px; }
 }

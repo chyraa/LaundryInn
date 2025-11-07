@@ -112,3 +112,23 @@
   color: #fff;
   font-weight: 500;
 }
+
+/* Tambahan styling untuk pilihan role */
+.role-select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 18px;
+  border: 1px solid #e3eaf2;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #f6fbff;
+  color: #0c3d5b;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.role-select:focus {
+  outline: none;
+  border-color: #2f77a8;
+  box-shadow: 0 0 0 2px rgba(47, 119, 168, 0.1);
+}

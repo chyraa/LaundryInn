@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "start": "npm --prefix frontend start",
+    "install:frontend": "npm --prefix frontend install"
+  },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",

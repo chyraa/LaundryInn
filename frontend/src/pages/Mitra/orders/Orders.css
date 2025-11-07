@@ -1,0 +1,162 @@
+.orders-mitra {
+  background-color: #eef2f6;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+  color: #0c2a47;
+}
+
+.orders-container {
+  text-align: center;
+  padding: 2rem 4rem;
+}
+
+.brand-title {
+  font-family: "Georgia", serif;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.page-title {
+  font-family: "Georgia", serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #0b3255;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tab {
+  padding: 0.6rem 1.4rem;
+  border: none;
+  border-radius: 10px;
+  background-color: #b8c7d1;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.tab.active:nth-child(1) {
+  background-color: #8da0b1;
+}
+.tab.active:nth-child(2) {
+  background-color: #0072bb;
+}
+.tab.active:nth-child(3) {
+  background-color: #d42a2a;
+}
+
+.subtext {
+  color: #8a8a8a;
+  margin: 1rem 0 2rem;
+  font-style: italic;
+}
+
+.orders-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.order-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  padding: 1.2rem;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-id {
+  font-weight: 700;
+  color: #0c2a47;
+}
+
+.order-service {
+  font-weight: 600;
+  margin: 0.2rem 0;
+}
+
+.order-address,
+.order-date,
+.order-price {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0.2rem 0;
+}
+
+.order-status {
+  text-align: right;
+}
+
+.status {
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  color: white;
+}
+
+.status.SedangDicuci {
+  background-color: #8da0b1;
+}
+
+.status.Menjemput {
+  background-color: #f3c217;
+  color: #333;
+}
+
+.status.Dibatalkan {
+  background-color: #d42a2a;
+}
+
+.status.Selesai {
+  background-color: #0072bb;
+}
+
+.footer {
+  margin-top: 4rem;
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: space-around;
+  padding: 2rem;
+  font-size: 0.9rem;
+  color: #333;
+  flex-wrap: wrap;
+}
+
+.footer h3,
+.footer h4 {
+  margin-bottom: 0.5rem;
+}
+
+.footer-left,
+.footer-center,
+.footer-right {
+  width: 250px;
+  margin-bottom: 1rem;
+}
+
+/* Animasi wrapper */
+.orders-motion-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Smooth transition for buttons */
+.tab {
+  transition: background-color 0.3s, transform 0.2s;
+}
+.tab:hover {
+  transform: translateY(-2px);
+}

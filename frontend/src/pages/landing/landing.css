@@ -1,0 +1,259 @@
+/* ====== GLOBAL ====== */
+.landing-container {
+  font-family: "Poppins", sans-serif;
+  background-color: #f7f9fb;
+  color: #1a1a1a;
+  overflow-x: hidden;
+}
+
+/* ====== HEADER ====== */
+.landing-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px 60px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.landing-header img {
+  height: 60px;
+  margin-right: 3px;
+}
+
+.landing-header h1 {
+  font-size: 1.4rem;
+  color: #0c3d5b;
+  font-weight: 600;
+}
+
+/* ====== HERO SECTION (FINAL FIX) ====== */
+.hero-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: #9ebacf;
+  min-height: 85vh;
+  overflow: hidden;
+  padding-left: 100px;
+  padding-right: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  align-items: center;
+}
+
+/* kiri */
+.hero-left {
+  max-width: 500px;
+}
+
+.hero-left h2 {
+  color: #355c7d;
+  font-size: 3rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.hero-left h1 {
+  color: #204b9c;
+  font-size: 5rem;
+  font-weight: 800;
+  margin: 0.3rem 0 1rem;
+  line-height: 1.1;
+}
+
+.hero-left p {
+  color: #757575;
+  font-size: 1.8rem;
+  margin-bottom: 35px;
+  line-height: 1.5;
+  max-width: 400px;
+}
+
+.hero-left .btn-primary {
+  display: inline-block;
+  background: #2b74b4;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 18px 42px;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.hero-left .btn-primary:hover {
+  background-color: #687ea8;
+  transform: translateY(-2px);
+}
+
+/* kanan */
+.hero-right {
+  height: 100%;
+  width: 100%;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  display: block;
+  margin: 0;
+}
+
+
+/* ====== FITUR SECTION ====== */
+.fitur-section {
+  text-align: center;
+  padding: 80px 60px 60px;
+  background-color: #ffffff;
+}
+
+.judul-fitur {
+  font-size: 2.2rem;
+  color: #204b9c;
+  margin-bottom: 50px;
+  font-weight: 700;
+}
+
+.fitur-cards {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.fitur-card {
+  background: #ffffff;
+  width: 240px;
+  padding: 30px 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.fitur-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.fitur-card i {
+  font-size: 36px;
+  margin-bottom: 15px;
+}
+
+.fitur-card h3 {
+  color: #0c3d5b;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.fitur-card p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.pink i {
+  color: #f38ba0;
+}
+
+.yellow i {
+  color: #f2b75d;
+}
+
+.green i {
+  color: #6ac18d;
+}
+
+/* ====== STATISTIK SECTION ====== */
+.statistik-section {
+  background: linear-gradient(90deg, #5ba6e3, #2b74b4);
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.statistik-section h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+
+.statistik-box {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap;
+}
+
+.statistik-box div {
+  min-width: 180px;
+}
+
+.statistik-box h3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.statistik-box p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* ====== FOOTER ====== */
+.landing-footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 60px 80px;
+  background-color: #f1f4f8;
+  color: #444;
+}
+
+.footer-left {
+  max-width: 300px;
+}
+
+.footer-logo {
+  height: 45px;
+  margin-bottom: 15px;
+}
+
+.footer-left p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+.footer-right {
+  display: flex;
+  gap: 80px;
+  flex-wrap: wrap;
+}
+
+.footer-right h4 {
+  color: #0c2a52;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.footer-right ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-right li {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.footer-right li:hover {
+  color: #204b9c;
+}

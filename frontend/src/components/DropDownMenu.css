@@ -1,8 +1,8 @@
 /* Container utama dropdown */
 .dropdown-container {
   position: absolute;
-  top: 60px; /* agak ke bawah biar tak terlalu nempel navbar */
-  right: 20px; /* jarak dari sisi kanan */
+  top: 60px;
+  right: 20px;
   z-index: 1000;
   animation: fadeIn 0.25s ease-out;
 }
@@ -10,49 +10,45 @@
 /* Kotak menu dropdown */
 .dropdown-menu {
   background: #ffffff;
-  border: none;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12), 0 1.5px 4px rgba(0,0,0,0.08);
-  padding: 12px 0;
-  min-width: 180px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(47, 119, 168, 0.18);
+  padding: 10px 0;
+  min-width: 200px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  backdrop-filter: blur(8px);
   transition: all 0.3s ease;
-  animation: fadeIn 0.2s;
+  border: 1px solid #e3eef7;
 }
 
 /* Item menu */
 .dropdown-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 24px;
-  color: #222;
+  gap: 10px;
+  padding: 12px 20px;
+  color: #0c3d5b;
+  background: transparent;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 500;
-  border-radius: 6px;
-  transition: background 0.15s ease, color 0.15s;
-  width: 100%;
-  text-align: left;
-  outline: none;
   border: none;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-align: left;
 }
 
 /* Hover efek */
-.dropdown-item:hover,
-.dropdown-item:focus {
-  background: #f0f4fa;
-  color: #0077b6;
+.dropdown-item:hover {
+  background: linear-gradient(90deg, #f1f9ff 0%, #e8f2ff 100%);
+  color: #2f77a8;
+  padding-left: 24px;
 }
 
-/* Garis pemisah (jika mau tambahkan antar item) */
-.dropdown-divider {
-  height: 1px;
-  background-color: #e9ecef;
-  margin: 6px 0;
+/* Garis pemisah halus antar item */
+.dropdown-item + .dropdown-item {
+  border-top: 1px solid #f0f5fa;
 }
 
 /* Efek animasi muncul */
@@ -65,4 +61,9 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Sedikit bayangan lembut saat hover menu */
+.dropdown-menu:hover {
+  box-shadow: 0 8px 28px rgba(47, 119, 168, 0.22);
 }

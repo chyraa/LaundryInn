@@ -1,0 +1,59 @@
+/* Order Detail specific styles (moved from Orders.css) */
+
+.orders-hero {
+  padding-top: 6px;
+  padding-bottom: 12px;
+}
+
+.orders-list.single { /* optional helper class if used */
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.order-card {
+  padding: 22px 20px;
+}
+
+.order-left { gap: 20px; }
+
+.order-item { min-width: 160px; }
+
+.order-right { min-width: 160px; display:flex; align-items:center; justify-content:flex-end; }
+
+.status-badge { font-size:15px; padding:10px 16px; }
+
+.orders-page > p {
+  text-align: center;
+  color: #3b5560;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.orders-page button {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(15,46,60,0.08);
+  background: #fff;
+  color: #0c3d5b;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.orders-page button:hover { box-shadow: 0 6px 18px rgba(17,50,65,0.06); }
+
+/* make order detail stack nicely on small screens */
+@media (max-width: 640px) {
+  .order-row { flex-direction: column; gap: 12px; }
+  .order-left { gap: 12px; }
+  .order-right { justify-content: flex-start; }
+  .orders-hero h1 { font-size: 28px; }
+  .order-card { padding: 16px; }
+}
+
+/* small helper for back/link buttons inside order-footer */
+.order-footer .link {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: transparent;
+}

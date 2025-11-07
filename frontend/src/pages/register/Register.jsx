@@ -1,34 +1,66 @@
 import React, { useState } from "react";
 import "./Register.css";
-import { auth } from "../../firebase";
-import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
-import { useNavigate } from "react-router-dom"; // Tambahkan ini
-import { db } from "../../firebase";
-import { doc, setDoc } from "firebase/firestore"; // Tambahkan ini
+import { auth, db } from "../../firebase";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  updateProfile,
+} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { doc, setDoc } from "firebase/firestore";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [role, setRole] = useState("customer");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
-  const navigate = useNavigate(); // Tambahkan ini
+
+  // 🧾 Tambahan: data laundry untuk mitra
+  const [laundryName, setLaundryName] = useState("");
+  const [laundryAddress, setLaundryAddress] = useState("");
+  const [operationalHours, setOperationalHours] = useState("");
+  const [services, setServices] = useState("");
+
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       await sendEmailVerification(userCredential.user);
       await updateProfile(auth.currentUser, { displayName: name });
-      await setDoc(doc(db, "users", userCredential.user.uid), {
+
+      // 📦 Data umum
+      const userData = {
         name,
         email,
         phone,
         address,
-      });
-      setShowSuccess(true); // Tampilkan popup sukses
+        role,
+      };
+
+      // 📦 Jika mitra → tambahkan data laundry
+      if (role === "mitra") {
+        userData.laundryData = {
+          laundryName,
+          laundryAddress,
+          operationalHours,
+          services,
+        };
+      }
+
+      // ✅ Simpan ke Firestore
+      await setDoc(doc(db, "users", userCredential.user.uid), userData);
+
+      setShowSuccess(true);
     } catch (error) {
       setError(error.message);
     }
@@ -84,6 +116,63 @@ const Register = () => {
             onChange={(e) => setAddress(e.target.value)}
           />
 
+          <label htmlFor="role">Daftar Sebagai</label>
+          <select
+            id="role"
+            className="role-select"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+          >
+            <option value="customer">Customer</option>
+            <option value="mitra">Mitra</option>
+          </select>
+
+          {/* 🔽 Jika mitra, tampilkan form tambahan */}
+          {role === "mitra" && (
+            <div className="mitra-extra">
+              <h3>Data Laundry</h3>
+
+              <label htmlFor="laundryName">Nama Laundry</label>
+              <input
+                type="text"
+                id="laundryName"
+                placeholder="Nama Laundry"
+                required
+                value={laundryName}
+                onChange={(e) => setLaundryName(e.target.value)}
+              />
+
+              <label htmlFor="laundryAddress">Alamat Laundry</label>
+              <input
+                type="text"
+                id="laundryAddress"
+                placeholder="Alamat Laundry"
+                required
+                value={laundryAddress}
+                onChange={(e) => setLaundryAddress(e.target.value)}
+              />
+
+              <label htmlFor="operationalHours">Jam Operasional</label>
+              <input
+                type="text"
+                id="operationalHours"
+                placeholder="Contoh: 08.00 - 20.00"
+                required
+                value={operationalHours}
+                onChange={(e) => setOperationalHours(e.target.value)}
+              />
+
+              <label htmlFor="services">Layanan yang Disediakan</label>
+              <textarea
+                id="services"
+                placeholder="Contoh: Cuci Kering, Setrika, Express"
+                required
+                value={services}
+                onChange={(e) => setServices(e.target.value)}
+              ></textarea>
+            </div>
+          )}
+
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -96,7 +185,9 @@ const Register = () => {
 
           <button type="submit">Daftar</button>
         </form>
+
         {error && <p style={{ color: "red" }}>{error}</p>}
+
         {showSuccess && (
           <div className="popup-overlay">
             <div className="popup-success">
@@ -106,9 +197,13 @@ const Register = () => {
             </div>
           </div>
         )}
+
         <p className="ket">
-          Dengan membuat akun Anda atau masuk, Anda setuju dengan Syarat dan Ketentuan & Kebijakan Privasi kami
+          Dengan membuat akun Anda atau masuk, Anda setuju dengan{" "}
+          <span style={{ color: "#2f77a8" }}>Syarat dan Ketentuan</span> &{" "}
+          <span style={{ color: "#2f77a8" }}>Kebijakan Privasi</span> kami.
         </p>
+
         <p className="register-footer">
           Sudah punya akun? <a href="/login">Masuk</a>
         </p>

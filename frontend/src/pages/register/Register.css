@@ -1,86 +1,132 @@
+/* 🌊 Warna dasar biru lembut LaundryIn */
+:root {
+  --blue-main: #2f77a8;
+  --blue-dark: #0c3d5b;
+  --blue-bg: #f7f9fb;
+  --blue-light: #f6fbff;
+  --text-dark: #0c3d5b;
+  --text-light: #9da5aa;
+}
+
 .register-page {
   min-height: 100vh;
-  background: #f7f9fb;
+  background: var(--blue-bg);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 100px; /* Tambahkan ini agar tidak tertutup navbar */
+  padding-top: 100px;
 }
 
 .register-card {
   background: #fff;
-  padding: 32px 55px;
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(44, 77, 128, 0.10);
+  padding: 40px 50px;
+  border-radius: 18px;
+  box-shadow: 0 6px 22px rgba(44, 77, 128, 0.12);
   width: 100%;
-  max-width: 350px;
+  max-width: 400px;
   text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.register-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(44, 77, 128, 0.15);
 }
 
 .register-card h2 {
-  color: #2f77a8;
-  margin-bottom: 24px;
-  font-size: 2.5rem;
+  color: var(--blue-main);
+  margin-bottom: 28px;
+  font-size: 2.2rem;
   font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 .register-card label {
   display: block;
   text-align: left;
   margin-bottom: 6px;
-  color: #0c3d5b;
-  font-size: 1rem;
-  font-weight: 500;
+  color: var(--text-dark);
+  font-size: 0.95rem;
+  font-weight: 600;
 }
 
-.register-card input {
+.register-card input,
+.role-select {
   width: 100%;
-  padding: 10px 12px;
-  margin-bottom: 18px;
-  border: 1px solid #e3eaf2;
-  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  border: 1px solid #dbe6ef;
+  border-radius: 10px;
   font-size: 1rem;
-  background: #f6fbff;
+  background: var(--blue-light);
+  color: var(--text-dark);
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.register-card input:focus,
+.role-select:focus {
+  outline: none;
+  border-color: var(--blue-main);
+  box-shadow: 0 0 0 3px rgba(47, 119, 168, 0.15);
+  background: #fff;
+}
+
+.role-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg fill='none' stroke='%232f77a8' stroke-width='2' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E<path stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 18px;
 }
 
 .register-card button {
   width: 100%;
-  background: #2f77a8;
+  background: var(--blue-main);
   color: #fff;
   border: none;
-  border-radius: 8px;
-  padding: 10px 0;
+  border-radius: 10px;
+  padding: 12px 0;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 8px;
-  transition: background 0.2s;
+  margin-top: 5px;
+  transition: all 0.2s ease;
 }
 
 .register-card button:hover {
-  background: #0c3d5b;
+  background: var(--blue-dark);
+  transform: scale(1.02);
 }
 
-.ket { 
-  font-size: 0.80rem;
-  color: #9da5aa
+.ket {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-top: 12px;
+  line-height: 1.4;
 }
 
 .register-footer {
-  margin-top: 18px;
+  margin-top: 20px;
   font-size: 0.95rem;
 }
 
 .register-footer a {
-  color: #2f77a8;
+  color: var(--blue-main);
   text-decoration: none;
   font-weight: 600;
 }
 
+.register-footer a:hover {
+  text-decoration: underline;
+}
+
+/* 🎉 Popup sukses */
 .popup-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0, 0, 0, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,27 +135,57 @@
 
 .popup-success {
   background: #fff;
-  padding: 32px 32px 24px 32px;
-  border-radius: 12px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  padding: 36px 40px 28px 40px;
+  border-radius: 14px;
+  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.12);
   min-width: 320px;
   max-width: 90vw;
   text-align: center;
+  animation: fadeIn 0.3s ease;
 }
 
 .popup-success h3 {
-  margin-bottom: 12px;
-  font-size: 1.2rem;
-  font-weight: 600;
+  margin-bottom: 14px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--blue-dark);
 }
 
 .popup-success button {
-  margin-top: 16px;
-  padding: 8px 20px;
-  border-radius: 6px;
+  margin-top: 18px;
+  padding: 9px 22px;
+  border-radius: 8px;
   border: none;
   cursor: pointer;
-  background: #0077b6;
+  background: var(--blue-main);
   color: #fff;
-  font-weight: 500;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.popup-success button:hover {
+  background: var(--blue-dark);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.mitra-extra {
+  background: #f1f7ff;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 15px;
+}
+
+.mitra-extra h3 {
+  margin-bottom: 10px;
+  color: #1e5180;
+  font-weight: 600;
+}
+
+.mitra-extra input,
+.mitra-extra textarea {
+  margin-bottom: 10px;
 }

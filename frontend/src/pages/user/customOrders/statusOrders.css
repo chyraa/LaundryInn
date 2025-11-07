@@ -1,0 +1,210 @@
+.status-container {
+  max-width: 1200px; /* dari 750px jadi 1200px biar fit desktop */
+  margin: 40px auto;
+  font-family: "Poppins", sans-serif;
+  color: #333;
+}
+
+/* ===== JUDUL HALAMAN ===== */
+.title-page {
+  font-size: 26px; /* lebih besar */
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+/* ===== CARD ESTIMASI ===== */
+.card-estimasi {
+  background-color: #3178c6;
+  color: white;
+  padding: 35px; /* lebih luas */
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(49, 120, 198, 0.3);
+}
+
+.estimasi-title {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.estimasi-subtitle {
+  font-size: 16px;
+  opacity: 0.95;
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 24px 0;
+}
+
+.progress-step {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #b9d4f4;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.progress-step.active {
+  background-color: #fff;
+  color: #3178c6;
+}
+
+.progress-line {
+  flex: 1;
+  height: 5px;
+  background-color: #b9d4f4;
+  margin: 0 10px;
+  border-radius: 3px;
+}
+
+.progress-line.active {
+  background-color: #fff;
+}
+
+.estimasi-info {
+  font-size: 15px;
+  text-align: center;
+  opacity: 0.9;
+}
+
+/* ===== CARD LOKASI ===== */
+.card-lokasi {
+  background-color: #fff;
+  padding: 35px;
+  border-radius: 20px;
+  margin-top: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.lokasi-section {
+  display: flex;
+  gap: 20px;
+  position: relative;
+}
+
+.dot-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #ccc;
+}
+
+.dot.aktif {
+  background-color: #3178c6;
+}
+
+.vertical-line {
+  width: 2px;
+  height: 60px;
+  background-color: #ccc;
+  margin: 4px 0;
+}
+
+.lokasi-detail h4 {
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.nama-tempat {
+  color: #3178c6;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.alamat {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.kontak {
+  font-size: 15px;
+  color: #3178c6;
+  font-weight: 600;
+}
+
+/* ===== CARD ITEM ===== */
+.card-item {
+  background-color: #fff;
+  padding: 35px;
+  border-radius: 20px;
+  margin-top: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.card-item h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.item-icon {
+  font-size: 30px;
+}
+
+.item-left span {
+  font-size: 16px;
+}
+
+.harga {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.rincian {
+  border-top: 1px solid #eee;
+  margin-top: 20px;
+  padding-top: 15px;
+  font-size: 16px;
+}
+
+.rincian p {
+  display: flex;
+  justify-content: space-between;
+  margin: 6px 0;
+}
+
+.rincian .total {
+  font-weight: 700;
+  color: #3178c6;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .status-container {
+    max-width: 95%;
+    padding: 0 10px;
+  }
+
+  .card-estimasi,
+  .card-lokasi,
+  .card-item {
+    padding: 25px;
+  }
+}

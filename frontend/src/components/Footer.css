@@ -1,34 +1,58 @@
-/* === FOOTER === */
+/* ====== GLOBAL LAYOUT ====== */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ====== FOOTER SECTION ====== */
 .footer {
+  width: 100vw; /* full width ke layar */
   background: #fff;
   padding: 40px 80px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   border-top: 1px solid #ddd;
+  box-sizing: border-box;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw; /* biar keluar dari container tengah */
+  margin-right: -50vw;
+  margin-top: auto; /* nempel di bawah */
 }
 
+/* ====== BAGIAN KIRI ====== */
 .footer-left {
   flex: 1;
 }
 
 .footer-logo {
-  width: 40px;
+  width: 45px;
   margin-bottom: 10px;
 }
 
 .footer-left p {
-  font-size: 18px;
+  font-size: 16px;
   color: #555;
+  line-height: 1.6;
 }
 
-.footer-center, .footer-right {
-  flex: 0.2;
+/* ====== BAGIAN TENGAH ====== */
+.footer-center {
+  flex: 0.25;
 }
 
-.footer-center h4, .footer-right h4 {
+.footer-center h4 {
   margin-bottom: 15px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   color: #333;
 }
@@ -36,18 +60,56 @@
 .footer-center ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .footer-center li {
   margin-bottom: 8px;
-  font-size: 18px;
+  font-size: 16px;
   color: #555;
   cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.footer-center li:hover {
+  color: #2563eb;
+}
+
+/* ====== BAGIAN KANAN ====== */
+.footer-right {
+  flex: 0.25;
+}
+
+.footer-right h4 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
 }
 
 .footer-right p {
   margin: 4px 0;
-  font-size: 18px;
+  font-size: 16px;
   color: #555;
 }
 
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    padding: 30px 40px;
+    text-align: center;
+    align-items: center;
+  }
+
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    flex: none;
+    margin-bottom: 20px;
+  }
+
+  .footer-logo {
+    margin: 0 auto 10px;
+  }
+}
