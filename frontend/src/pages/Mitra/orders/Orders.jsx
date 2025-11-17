@@ -1,16 +1,46 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom"; // ✅ Tambahkan ini
 import NavbarMitra from "../../../components/NavbarMitra";
 import "./Orders.css";
 
 const OrdersMitra = () => {
   const [activeTab, setActiveTab] = useState("berlangsung");
+  const navigate = useNavigate(); // ✅ Untuk navigasi ke detail
 
   const orders = [
-    { id: "#LAUNDRYIN12345", service: "Cuci Kering Setrika - Ekspress", address: "Jl. Melati No.15", date: "17 Agustus 2025, 10.30 WIB", price: "Rp 55.000", status: "Sedang Dicuci" },
-    { id: "#LAUNDRYIN12346", service: "Cuci Kering Setrika - Ekspress", address: "Jl. Melati No.15", date: "17 Agustus 2025, 10.30 WIB", price: "Rp 55.000", status: "Menjemput" },
-    { id: "#LAUNDRYIN12347", service: "Cuci Kering Setrika - Ekspress", address: "Jl. Melati No.15", date: "17 Agustus 2025, 10.30 WIB", price: "Rp 55.000", status: "Dibatalkan" },
-    { id: "#LAUNDRYIN12348", service: "Cuci Kering Setrika - Ekspress", address: "Jl. Melati No.15", date: "17 Agustus 2025, 10.30 WIB", price: "Rp 55.000", status: "Selesai" },
+    {
+      id: "LAUNDRYIN12345",
+      service: "Cuci Kering Setrika - Ekspress",
+      address: "Jl. Melati No.15",
+      date: "17 Agustus 2025, 10.30 WIB",
+      price: "Rp 55.000",
+      status: "Sedang Dicuci",
+    },
+    {
+      id: "LAUNDRYIN12346",
+      service: "Cuci Kering Setrika - Ekspress",
+      address: "Jl. Melati No.15",
+      date: "17 Agustus 2025, 10.30 WIB",
+      price: "Rp 55.000",
+      status: "Menjemput",
+    },
+    {
+      id: "LAUNDRYIN12347",
+      service: "Cuci Kering Setrika - Ekspress",
+      address: "Jl. Melati No.15",
+      date: "17 Agustus 2025, 10.30 WIB",
+      price: "Rp 55.000",
+      status: "Dibatalkan",
+    },
+    {
+      id: "LAUNDRYIN12348",
+      service: "Cuci Kering Setrika - Ekspress",
+      address: "Jl. Melati No.15",
+      date: "17 Agustus 2025, 10.30 WIB",
+      price: "Rp 55.000",
+      status: "Selesai",
+    },
   ];
 
   const filteredOrders = orders.filter((order) => {
@@ -25,6 +55,11 @@ const OrdersMitra = () => {
     hidden: { opacity: 0, y: 10 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
     exit: { opacity: 0, y: -10, transition: { duration: 0.3 } },
+  };
+
+  // ✅ Fungsi navigasi ke detail pesanan
+  const handleCardClick = (id) => {
+    navigate(`/mitra/orders/${id}`);
   };
 
   return (
@@ -72,12 +107,15 @@ const OrdersMitra = () => {
                 <motion.div
                   className="order-card"
                   key={order.id}
+                  onClick={() => handleCardClick(order.id)} // ✅ Klik card → ke detail
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
                   <div className="order-info">
-                    <p className="order-id">{order.id}</p>
+                    <p className="order-id">#{order.id}</p>
                     <p className="order-service">{order.service}</p>
                     <p className="order-address">{order.address}</p>
                     <p className="order-date">{order.date}</p>

@@ -26,6 +26,8 @@ import HomeMitra from "./pages/Mitra/home/Home";
 import OrdersMitra from "./pages/Mitra/orders/Orders";
 import ProfilMitra from "./pages/Mitra/profile/Profile";
 import IClean from "./mitra/IClean";
+import DetailOrder from "./pages/Mitra/orders/DetailOrder";
+
 
 // ==================== Layouts ====================
 
@@ -87,6 +89,7 @@ function App() {
         >
           <Route path="home" element={<HomeMitra />} />
           <Route path="orders" element={<OrdersMitra />} />
+          <Route path="orders/:id" element={<DetailOrder />} /> 
           <Route path="profile" element={<ProfilMitra />} />
           <Route path="iclean" element={<IClean />} />
         </Route>
