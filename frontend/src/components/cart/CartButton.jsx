@@ -2,11 +2,15 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./cart.css";
 
-export default function CartButton({ totalItems }) {
+export default function CartButton({ totalItems, onCheckout }) {
   const navigate = useNavigate();
 
   const handleCheckout = () => {
-    navigate("/user/customOrders"); // arahkan ke page Custom Pembelian
+    if (onCheckout) {
+      onCheckout();
+    } else {
+      navigate("/user/customOrders");
+    }
   };
 
   return (

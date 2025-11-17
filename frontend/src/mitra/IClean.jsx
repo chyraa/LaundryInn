@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import laundryBanner from "../assets/laundry-banner.png";
 import Navbar from "../components/Navbar";
 import CartButton from "../components/cart/CartButton"; // tombol checkout
@@ -37,6 +38,22 @@ export default function IClean() {
       setQuantities({ ...quantities, [key]: current - 1 });
     }
   };
+
+  const navigate = useNavigate();
+
+const handleProceedToCheckout = () => {
+  const items = Object.keys(quantities).map((key) => {
+    const service = services.find((s) => s.key === key);
+    return {
+      name: service.title,
+      desc: service.desc,
+      price: service.price,
+      quantity: quantities[key],
+    };
+  });
+  navigate("/user/customOrders", { state: { items } });
+};
+
 
   const totalItems = Object.values(quantities).reduce((a, b) => a + b, 0);
 
@@ -122,7 +139,10 @@ export default function IClean() {
         </div>
       </section>
 
-      {Object.keys(quantities).length > 0 && <CartButton totalItems={totalItems} />}
+      {Object.keys(quantities).length > 0 && (
+  <CartButton totalItems={totalItems} onCheckout={handleProceedToCheckout} />
+)}
+
     </div>
   );
 }

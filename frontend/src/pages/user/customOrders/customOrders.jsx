@@ -1,20 +1,35 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useMemo } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const CustomPembelian = () => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [note, setNote] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const items = [
-    { name: "Selimut Kecil", price: 10000 },
-    { name: "Selimut Besar", price: 15000 },
-    { name: "Sepatu", price: 10000 },
-    { name: "Boneka", price: 10000 },
-    { name: "Alat Sholat", price: 8000 },
-    { name: "Sprei", price: 12000 },
-    { name: "Baju Reguler", price: 0 },
-  ];
+  // ✅ Gunakan useMemo agar nilai iCleanItems stabil
+  const iCleanItems = useMemo(() => {
+    return location.state?.items || [];
+  }, [location.state]);
+
+  const items = useMemo(
+    () => [
+      { name: "Selimut Kecil", price: 10000 },
+      { name: "Selimut Besar", price: 15000 },
+      { name: "Sepatu", price: 10000 },
+      { name: "Boneka", price: 10000 },
+      { name: "Alat Sholat", price: 8000 },
+      { name: "Sprei", price: 12000 },
+      { name: "Baju Reguler", price: 0 },
+    ],
+    []
+  );
+
+  useEffect(() => {
+    if (iCleanItems.length > 0) {
+      setSelectedItems(iCleanItems.map((i) => i.name));
+    }
+  }, [iCleanItems]);
 
   const toggleItem = (itemName) => {
     setSelectedItems((prev) =>
@@ -25,11 +40,14 @@ const CustomPembelian = () => {
   };
 
   const handleConfirm = () => {
-    const selectedData = items.filter((item) =>
-      selectedItems.includes(item.name)
-    );
+    let selectedData;
 
-    // kirim data ke halaman berikut
+    if (iCleanItems.length > 0) {
+      selectedData = iCleanItems;
+    } else {
+      selectedData = items.filter((item) => selectedItems.includes(item.name));
+    }
+
     navigate("/user/confirmOrders", {
       state: { selectedData, note },
     });
@@ -53,6 +71,7 @@ const CustomPembelian = () => {
           </div>
         </header>
 
+        {/* --- Kartu Laundry --- */}
         <div className="bg-white rounded-2xl shadow-xl mb-6 overflow-hidden transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/10 to-purple-600/10"></div>
@@ -79,7 +98,7 @@ const CustomPembelian = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl border border-indigo-100/50">
               <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm">
                 <span className="text-2xl">🚚</span>
@@ -95,6 +114,7 @@ const CustomPembelian = () => {
           </div>
         </div>
 
+        {/* --- Pilihan Item --- */}
         <div className="bg-white rounded-2xl shadow-xl mb-6 overflow-hidden">
           <div className="border-b border-gray-100 p-6">
             <h3 className="text-xl font-bold text-gray-900 mb-2">Reguler</h3>
@@ -143,10 +163,11 @@ const CustomPembelian = () => {
           </ul>
         </div>
 
+        {/* --- Catatan --- */}
         <div className="bg-white rounded-2xl shadow-xl mb-6 overflow-hidden">
           <div className="border-b border-gray-100 p-6">
             <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-              Catatan 
+              Catatan
               <span className="text-sm font-normal text-gray-500 px-2 py-0.5 bg-gray-100 rounded-full">
                 Opsional
               </span>
@@ -167,13 +188,15 @@ const CustomPembelian = () => {
           </div>
         </div>
 
+        {/* --- Tombol Konfirmasi --- */}
         <div className="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-1px_12px_rgba(0,0,0,0.1)] p-4 z-10">
           <div className="max-w-2xl mx-auto px-4">
             <button
               className={`w-full relative overflow-hidden py-4 px-6 rounded-xl text-white font-semibold transition-all duration-300 
-                ${selectedItems.length === 0
-                  ? "bg-gray-300 cursor-not-allowed"
-                  : "bg-gradient-to-r from-indigo-600 to-purple-600 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98]"
+                ${
+                  selectedItems.length === 0
+                    ? "bg-gray-300 cursor-not-allowed"
+                    : "bg-gradient-to-r from-indigo-600 to-purple-600 hover:scale-[1.02] hover:shadow-lg active:scale-[0.98]"
                 }
               `}
               disabled={selectedItems.length === 0}
