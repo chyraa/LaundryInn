@@ -44,7 +44,7 @@ const LandingMitra = () => {
                 
                 <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-4 sm:gap-6">
                   <Link 
-                    to="/login" 
+                    to="/user/home" 
                     className="inline-flex items-center justify-center px-8 py-4 text-base font-medium rounded-xl text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-indigo-500/25 whitespace-nowrap"
                   >
                     Mulai Sekarang

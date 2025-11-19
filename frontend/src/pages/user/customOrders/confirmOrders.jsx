@@ -1,35 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { db, auth } from "../../../firebase";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp, doc, getDoc } from "firebase/firestore";
 
 const ConfirmOrders = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [profile, setProfile] = useState(null);
+  const [loadingProfile, setLoadingProfile] = useState(true);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setProfile(docSnap.data());
+        }
+      }
+      setLoadingProfile(false);
+    };
+
+    fetchProfile();
+  }, []);
 
   // Ambil data dari halaman sebelumnya
   const { selectedData = [], note = "" } = location.state || {};
 
-  // Data pelanggan (sementara statis)
-  const order = {
-    nama: "Zhulma Fitrah",
-    phone: "+62 851-7225-3596",
-    address:
-      "Jalan Baru No.18, Lubuk Kilangan (Gang Mesjid Istiqamah, Kota Padang, Sumatera Barat, ID 25223)",
-    estimate: "29 Oktober",
-  };
-
-  // ✅ Hitung subtotal dengan aman (pastikan price berupa angka)
+  // ✅ Hitung subtotal dengan aman (pastikan price berupa angka dan perhatikan kuantitas)
   const subtotalPesanan = selectedData.reduce((sum, item) => {
     const harga = Number(item.price) || 0;
-    return sum + harga;
+    const qty = item.quantity || 1;
+    return sum + harga * qty;
   }, 0);
 
-  const subtotalPengiriman = 10000;
-  const biayaLayanan = 10000;
-  const totalPembayaran =
-    subtotalPesanan + subtotalPengiriman + biayaLayanan;
+  const totalPembayaran = subtotalPesanan;
 
   // ✅ Simpan ke Firestore (per user login)
   const handleCreateOrder = async () => {
@@ -48,18 +56,20 @@ const ConfirmOrders = () => {
     await addDoc(collection(db, "orders"), {
       userId: user.uid,
       userEmail: user.email,
+      customerInfo: {
+        name: profile?.name || user.displayName,
+        phone: profile?.phone,
+        address: profile?.address,
+      },
       items: selectedData,
       note,
       subtotalPesanan,
-      subtotalPengiriman,
-      biayaLayanan,
       totalPembayaran,
       status: "Menunggu Konfirmasi",
       createdAt: serverTimestamp(),
     });
 
-    alert("Pesanan berhasil dibuat!");
-    navigate("/user/statusOrders");
+    setIsModalOpen(true);
   } catch (error) {
     console.error("Error membuat pesanan:", error.message, error);
     alert("Terjadi kesalahan saat menyimpan pesanan: " + error.message);
@@ -87,9 +97,19 @@ const ConfirmOrders = () => {
           <h3 className="text-lg font-semibold mb-2">
             Informasi Pelanggan
           </h3>
-          <p className="text-gray-700">{order.nama}</p>
-          <p className="text-gray-700">{order.phone}</p>
-          <p className="text-gray-700">{order.address}</p>
+          {loadingProfile ? (
+            <div className="space-y-2 animate-pulse">
+              <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+              <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+              <div className="h-4 bg-gray-200 rounded w-full"></div>
+            </div>
+          ) : (
+            <>
+              <p className="text-gray-700">{profile?.name || auth.currentUser.displayName || "Nama tidak diatur"}</p>
+              <p className="text-gray-700">{profile?.phone || "Telepon tidak diatur"}</p>
+              <p className="text-gray-700">{profile?.address || "Alamat tidak diatur"}</p>
+            </>
+          )}
         </div>
 
         {/* Detail Pesanan */}
@@ -104,9 +124,13 @@ const ConfirmOrders = () => {
                 >
                   <span className="text-gray-800 font-medium">
                     {item.title || item.name || "Item"}
+                    {item.quantity > 1 && ` (x${item.quantity})`}
                   </span>
                   <span className="text-gray-600">
-                    Rp {Number(item.price).toLocaleString("id-ID")}
+                    Rp{" "}
+                    {(Number(item.price) * (item.quantity || 1)).toLocaleString(
+                      "id-ID"
+                    )}
                   </span>
                 </li>
               ))}
@@ -128,19 +152,6 @@ const ConfirmOrders = () => {
             Rincian Pembayaran
           </h3>
           <div className="space-y-2 text-gray-700">
-            <div className="flex justify-between">
-              <span>Subtotal Pesanan</span>
-              <span>Rp {subtotalPesanan.toLocaleString("id-ID")}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Biaya Pengiriman</span>
-              <span>Rp {subtotalPengiriman.toLocaleString("id-ID")}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Biaya Layanan</span>
-              <span>Rp {biayaLayanan.toLocaleString("id-ID")}</span>
-            </div>
-            <hr className="my-2" />
             <div className="flex justify-between font-bold text-lg">
               <span>Total Pembayaran</span>
               <span>Rp {totalPembayaran.toLocaleString("id-ID")}</span>
@@ -171,6 +182,27 @@ const ConfirmOrders = () => {
           </button>
         </div>
       </div>
+
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[100]">
+          <div className="bg-white p-8 rounded-2xl shadow-xl text-center max-w-sm mx-4">
+            <div className="mb-4">
+              <svg className="w-16 h-16 mx-auto text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <h3 className="text-2xl font-bold mb-2 text-gray-800">Pesanan Berhasil!</h3>
+            <p className="text-gray-600 mb-6">Pesanan Anda telah berhasil dibuat dan sedang menunggu konfirmasi.</p>
+            <button
+                onClick={() => {
+                    setIsModalOpen(false);
+                    navigate("/user/statusOrders");
+                }}
+                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:shadow-lg hover:scale-[1.02] transition-all"
+            >
+                Lihat Status Pesanan
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

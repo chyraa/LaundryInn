@@ -6,11 +6,19 @@ import laundry1 from "../../../assets/laundry1.png";
 import laundry2 from "../../../assets/laundry2.png";
 import laundry3 from "../../../assets/laundry3.png";
 import { Link } from "react-router-dom";
-import { sampleOrders } from "../../../data/sampleOrders";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../../firebase";
+import { auth, db } from "../../../firebase";
 import Navbar from "../../../components/Navbar"; // ✅ Import Navbar
 import Footer from "../../../components/Footer.jsx";
+import { useEffect, useState } from "react";
+import {
+  collection,
+  query,
+  where,
+  onSnapshot,
+  orderBy,
+  limit,
+} from "firebase/firestore";
 
 const laundries = [
   { id: 1, img: laundry1, name: "I Clean Laundry", rating: "⭐ 4.8 | 1K+ Orderan", to: "/mitra/IClean" },
@@ -21,6 +29,55 @@ const laundries = [
 
 const Home = () => {
   const [user] = useAuthState(auth);
+  const [recentOrders, setRecentOrders] = useState([]);
+  const [loadingOrders, setLoadingOrders] = useState(true);
+
+  useEffect(() => {
+    if (!user) {
+      setRecentOrders([]);
+      setLoadingOrders(false);
+      return;
+    }
+
+    const q = query(
+      collection(db, "orders"),
+      where("userId", "==", user.uid),
+      orderBy("createdAt", "desc"),
+      limit(3)
+    );
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const fetchedOrders = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setRecentOrders(fetchedOrders);
+      setLoadingOrders(false);
+    });
+
+    return () => unsubscribe();
+  }, [user]);
+
+  const formatDate = (timestamp) => {
+    if (!timestamp) return "-";
+    const date = timestamp.toDate();
+    // More concise date format for the home page
+    return date.toLocaleDateString("id-ID", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+  };
+
+  const getStatusStyle = (status) => {
+    const styles = {
+      Selesai: "text-green-500",
+      Diproses: "text-blue-500",
+      Dibatalkan: "text-red-500",
+      "Menunggu Konfirmasi": "text-yellow-500",
+    };
+    return styles[status] || "text-gray-500";
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -57,6 +114,32 @@ const Home = () => {
                 Tinggal klik, baju kotor langsung dijemput!
               </span>
             </p>
+
+            {user && (
+              <div className="mt-10 animate-fade-in-up delay-300">
+                <Link to="/search">
+                  <button className="group relative inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white rounded-lg overflow-hidden transition-all duration-300 ease-out hover:bg-blue-700 hover:scale-105 transform shadow-lg hover:shadow-xl">
+                    <span className="absolute inset-0 bg-white/10 group-hover:scale-x-100 scale-x-0 origin-left transition-transform duration-500"></span>
+                    <span className="relative inline-flex items-center text-lg font-semibold">
+                      <svg
+                        className="w-6 h-6 mr-3"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                        />
+                      </svg>
+                      Buat Pesanan Sekarang
+                    </span>
+                  </button>
+                </Link>
+              </div>
+            )}
 
             {!user && (
               <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-300">
@@ -220,56 +303,123 @@ const Home = () => {
       </section>
 
       {/* Riwayat Terbaru */}
-      <section className="py-16 px-4 bg-gradient-to-b from-white to-blue-50/30">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <span className="text-blue-600 text-sm font-medium">Aktivitas Anda</span>
-              <h3 className="text-2xl md:text-3xl font-bold text-blue-800 mt-1">Riwayat Pesanan Terbaru</h3>
-            </div>
-            <Link to="/user/orders" className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium">
-              Lihat Semua
-              <svg className="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {sampleOrders.slice(0, 3).map((o) => (
-              <Link key={o.id} to="/user/orders" className="group block">
-                <article className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform group-hover:-translate-y-1 border border-blue-50">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center">
-                      <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
-                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                        </svg>
-                      </div>
-                      <div className="ml-3">
-                        <div className="font-bold text-blue-800">Pesanan #{o.id}</div>
-                        <div className="text-sm text-gray-500">{o.pickup}</div>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-blue-600 font-bold">{o.total}</div>
-                      <div className="text-sm text-green-500">Selesai ✓</div>
-                    </div>
-                  </div>
-                  <div className="pt-4 border-t border-gray-100">
-                    <div className="flex items-center text-sm text-gray-500">
-                      <svg className="w-4 h-4 mr-1 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      Pesanan dibuat 2 hari yang lalu
-                    </div>
-                  </div>
-                </article>
+      {user && (
+        <section className="py-16 px-4 bg-gradient-to-b from-white to-blue-50/30">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <span className="text-blue-600 text-sm font-medium">
+                  Aktivitas Anda
+                </span>
+                <h3 className="text-2xl md:text-3xl font-bold text-blue-800 mt-1">
+                  Riwayat Pesanan Terbaru
+                </h3>
+              </div>
+              <Link
+                to="/user/orders"
+                className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
+              >
+                Lihat Semua
+                <svg
+                  className="w-5 h-5 ml-1"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
               </Link>
-            ))}
+            </div>
+
+            {loadingOrders ? (
+              <div className="text-center text-gray-500">
+                Memuat pesanan terbaru...
+              </div>
+            ) : recentOrders.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {recentOrders.map((o) => (
+                  <Link
+                    key={o.id}
+                    to={`/user/orders/${o.id}`}
+                    className="group block"
+                  >
+                    <article className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform group-hover:-translate-y-1 border border-blue-50">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center">
+                          <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
+                            <svg
+                              className="w-6 h-6"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                              />
+                            </svg>
+                          </div>
+                          <div className="ml-3">
+                            <div className="font-bold text-blue-800">
+                              Pesanan #{o.id.slice(0, 6)}
+                            </div>
+                            <div className="text-sm text-gray-500">
+                              {o.customerInfo?.name || "-"}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-blue-600 font-bold">
+                            Rp {o.totalPembayaran.toLocaleString("id-ID")}
+                          </div>
+                          <div
+                            className={`text-sm font-semibold ${getStatusStyle(
+                              o.status
+                            )}`}
+                          >
+                            {o.status}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="pt-4 border-t border-gray-100">
+                        <div className="flex items-center text-sm text-gray-500">
+                          <svg
+                            className="w-4 h-4 mr-1 text-blue-500"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
+                          {formatDate(o.createdAt)}
+                        </div>
+                      </div>
+                    </article>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center bg-white p-8 rounded-2xl shadow-lg border border-blue-50">
+                <p className="text-gray-600">
+                  Anda belum memiliki riwayat pesanan.
+                </p>
+              </div>
+            )}
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Laundry List */}
       <section className="py-20 px-4 bg-gradient-to-b from-blue-50/30 to-white">

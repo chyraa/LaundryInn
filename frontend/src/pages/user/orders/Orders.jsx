@@ -133,24 +133,24 @@ export default function Orders() {
                                 </span>
                               </div>
                               <div className="mt-1 text-sm text-gray-600">
-                                {o.catatan || "Tidak ada catatan"}
+                                {o.note || "Tidak ada catatan"}
                               </div>
                             </div>
                           </div>
 
                           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4 text-sm">
                             <div>
-                              <div className="text-xs text-gray-500">Jemput</div>
+                              <div className="text-xs text-gray-500">Pelanggan</div>
                               <div className="text-gray-900">
-                                {o.pickupAddress || "—"}
+                                {o.customerInfo?.name || "—"}
                               </div>
                             </div>
                             <div>
                               <div className="text-xs text-gray-500">
-                                Pengiriman
+                                Alamat
                               </div>
                               <div className="text-gray-900">
-                                {o.deliveryAddress || "—"}
+                                {o.customerInfo?.address || "—"}
                               </div>
                             </div>
                             <div>

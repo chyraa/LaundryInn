@@ -2,14 +2,26 @@ import React, { useEffect, useState } from "react";
 import { FaBiking, FaHome } from "react-icons/fa";
 import { GiWashingMachine } from "react-icons/gi";
 import { db, auth } from "../../../firebase";
-import { collection, query, where, onSnapshot, orderBy } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  onSnapshot,
+  orderBy,
+} from "firebase/firestore";
+import { Link } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const StatusPesanan = () => {
+  const [user, loadingAuth] = useAuthState(auth);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const user = auth.currentUser;
+    if (loadingAuth) {
+      // Tunggu hingga status otentikasi selesai dimuat
+      return;
+    }
     if (!user) {
       setOrders([]);
       setLoading(false);
@@ -22,19 +34,26 @@ const StatusPesanan = () => {
       orderBy("createdAt", "desc")
     );
 
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const userOrders = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setOrders(userOrders);
-      setLoading(false);
-    });
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        const userOrders = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setOrders(userOrders);
+        setLoading(false);
+      },
+      (error) => {
+        console.error("Error fetching orders:", error);
+        setLoading(false);
+      }
+    );
 
     return () => unsubscribe();
-  }, []);
+  }, [user, loadingAuth]);
 
-  if (loading) {
+  if (loading || loadingAuth) {
     return (
       <div className="text-center py-20 text-gray-500">
         Memuat data pesanan...
@@ -52,9 +71,16 @@ const StatusPesanan = () => {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-24 space-y-6">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-        Riwayat Pesanan
-      </h2>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold text-gray-800 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+          Status Pesanan
+        </h2>
+        <Link to="/user/orders">
+            <button className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all">
+                Lihat Riwayat Pesanan
+            </button>
+        </Link>
+      </div>
 
       {orders.map((order) => (
         <div
@@ -116,23 +142,16 @@ const StatusPesanan = () => {
                     </span>
                     <span className="font-medium text-gray-700">
                       {item.name || "Item"}
+                      {item.quantity > 1 && ` (x${item.quantity})`}
                     </span>
                   </div>
                   <span className="font-semibold text-gray-900">
-                    Rp {item.price.toLocaleString("id-ID")}
+                    Rp {(item.price * (item.quantity || 1)).toLocaleString("id-ID")}
                   </span>
                 </div>
               ))}
 
               <div className="mt-6 pt-4 border-t border-gray-200 space-y-2 text-gray-700">
-                <div className="flex justify-between">
-                  <span>Subtotal Pengiriman</span>
-                  <span>Rp {order.subtotalPengiriman.toLocaleString("id-ID")}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Biaya Layanan</span>
-                  <span>Rp {order.biayaLayanan.toLocaleString("id-ID")}</span>
-                </div>
                 <div className="flex justify-between font-bold pt-3">
                   <span>Total Pembayaran</span>
                   <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">

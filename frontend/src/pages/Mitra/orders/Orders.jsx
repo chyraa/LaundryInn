@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import NavbarMitra from "../../../components/NavbarMitra";
-import "./Orders.css";
+import Navbar from "../../../components/NavbarMitra";
+import Footer from "../../../components/Footer";
 
 const OrdersMitra = () => {
   const [activeTab, setActiveTab] = useState("berlangsung");
@@ -21,6 +21,21 @@ const OrdersMitra = () => {
     return true;
   });
 
+  const getStatusClass = (status) => {
+    switch (status) {
+      case "Sedang Dicuci":
+        return "bg-gray-400 text-white";
+      case "Menjemput":
+        return "bg-yellow-400 text-gray-800";
+      case "Dibatalkan":
+        return "bg-red-500 text-white";
+      case "Selesai":
+        return "bg-blue-500 text-white";
+      default:
+        return "bg-gray-200 text-gray-800";
+    }
+  };
+
   const containerVariants = {
     hidden: { opacity: 0, y: 10 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
@@ -28,37 +43,47 @@ const OrdersMitra = () => {
   };
 
   return (
-    <div className="orders-mitra">
-      <NavbarMitra />
+    <div className="bg-gray-100 min-h-screen font-sans text-gray-800">
+      <Navbar />
 
-      <div className="orders-container">
-        <h2 className="brand-title">LaundryInAja!</h2>
-        <h1 className="page-title">Riwayat Pemesanan</h1>
+      <div className="text-center py-8 px-4 md:px-16">
+        <h2 className="font-serif text-xl mb-2">LaundryInAja!</h2>
+        <h1 className="font-serif text-5xl font-bold mb-4 text-blue-900">
+          Riwayat Pemesanan
+        </h1>
 
-        <div className="tabs">
+        <div className="flex justify-center gap-2 mb-4">
           <button
-            className={`tab ${activeTab === "berlangsung" ? "active" : ""}`}
+            className={`py-2 px-6 rounded-lg font-semibold text-white transition-transform transform hover:scale-105 ${
+              activeTab === "berlangsung" ? "bg-gray-500" : "bg-gray-400"
+            }`}
             onClick={() => setActiveTab("berlangsung")}
           >
             Berlangsung
           </button>
           <button
-            className={`tab ${activeTab === "selesai" ? "active" : ""}`}
+            className={`py-2 px-6 rounded-lg font-semibold text-white transition-transform transform hover:scale-105 ${
+              activeTab === "selesai" ? "bg-blue-600" : "bg-blue-400"
+            }`}
             onClick={() => setActiveTab("selesai")}
           >
             Selesai
           </button>
           <button
-            className={`tab ${activeTab === "dibatalkan" ? "active" : ""}`}
+            className={`py-2 px-6 rounded-lg font-semibold text-white transition-transform transform hover:scale-105 ${
+              activeTab === "dibatalkan" ? "bg-red-600" : "bg-red-400"
+            }`}
             onClick={() => setActiveTab("dibatalkan")}
           >
             Dibatalkan
           </button>
         </div>
 
-        <p className="subtext">Cuci-Kering-Gosok-Angkut</p>
+        <p className="text-gray-500 italic my-4">
+          Cuci-Kering-Gosok-Angkut
+        </p>
 
-        <div className="orders-list">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
@@ -66,26 +91,28 @@ const OrdersMitra = () => {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="orders-motion-wrapper"
+              className="col-span-1 md:col-span-2 lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             >
               {filteredOrders.map((order, index) => (
                 <motion.div
-                  className="order-card"
+                  className="bg-white rounded-lg shadow-md p-5 text-left flex justify-between items-center"
                   key={order.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <div className="order-info">
-                    <p className="order-id">{order.id}</p>
-                    <p className="order-service">{order.service}</p>
-                    <p className="order-address">{order.address}</p>
-                    <p className="order-date">{order.date}</p>
-                    <p className="order-price">{order.price}</p>
+                  <div>
+                    <p className="font-bold text-gray-800">{order.id}</p>
+                    <p className="font-semibold my-1">{order.service}</p>
+                    <p className="text-sm text-gray-600">{order.address}</p>
+                    <p className="text-sm text-gray-600">{order.date}</p>
+                    <p className="text-sm font-semibold text-gray-800">{order.price}</p>
                   </div>
-                  <div className="order-status">
+                  <div className="text-right">
                     <button
-                      className={`status ${order.status.replace(" ", "")}`}
+                      className={`py-2 px-4 rounded-lg font-semibold ${getStatusClass(
+                        order.status
+                      )}`}
                     >
                       {order.status}
                     </button>
@@ -97,27 +124,7 @@ const OrdersMitra = () => {
         </div>
       </div>
 
-      <footer className="footer">
-        <div className="footer-left">
-          <h3>LaundryIn</h3>
-          <p>sdudioahdhadduishfuhdoiahdioa</p>
-          <p>jadialodiaoijdatbiahold sjbdialodiaa</p>
-        </div>
-        <div className="footer-center">
-          <h4>Support</h4>
-          <p>Help Center</p>
-          <p>Contact Us</p>
-          <p>Track Order</p>
-          <p>Returns</p>
-        </div>
-        <div className="footer-right">
-          <h4>Contact</h4>
-          <p>laundryinsupport@gmail.com</p>
-          <p>+62 852 7565 8890</p>
-          <p>Setiap Hari</p>
-          <p>09.00 - 22.00</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

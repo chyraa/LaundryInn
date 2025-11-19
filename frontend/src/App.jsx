@@ -20,6 +20,7 @@ import ProfileUser from "./pages/user/profile/Profile";
 import CustomOrders from "./pages/user/customOrders/customOrders";
 import ConfirmOrders from "./pages/user/customOrders/confirmOrders";
 import StatusOrders from "./pages/user/customOrders/statusOrders";
+import Search from "./pages/user/search/Search";
 
 // 🔹 Halaman Mitra
 import HomeMitra from "./pages/Mitra/home/Home";
@@ -75,6 +76,9 @@ function App() {
           <Route path="confirmOrders" element={<ConfirmOrders />} />
           <Route path="statusOrders" element={<StatusOrders />} />
         </Route>
+
+        {/* 🔸 Rute baru untuk daftar mitra */}
+        <Route path="/search" element={<Search />} />
 
         {/* 🔸 Routing untuk MITRA */}
         <Route
